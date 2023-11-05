@@ -4,7 +4,7 @@
 			Maze maze = new Maze();
 			Player player = new Player();
 			maze.Init(25, player);
-			player.Init(1, 1, maze.Size - 2, maze.Size - 2, maze);
+			player.Init(1, 1, maze);
 
 			Console.CursorVisible = false; // 콘솔 커서 표시 안함
 

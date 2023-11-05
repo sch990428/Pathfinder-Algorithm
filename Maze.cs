@@ -9,6 +9,10 @@ namespace Pathfinder_Algorithm {
 		public TileType[,] Tile { get; private set; }
 		public int Size { get; private set; }
 
+		public int DestY { get; private set; }
+		public int DestX { get; private set; }
+
+
 		public Player _player;
 
 		public enum TileType {
@@ -24,7 +28,9 @@ namespace Pathfinder_Algorithm {
 			_player = player;
 			Tile = new TileType[size, size];
 			Size = size;
-			
+
+			DestY = Size - 2;
+			DestX = Size - 2;
 			//GenerateByBinaryTree();
 			GenerateBySideWinder();
 		}
@@ -125,7 +131,11 @@ namespace Pathfinder_Algorithm {
 				for (int x = 0; x < Size; x++) {
 					if (_player.PosX == x && _player.PosY == y) {
 						Console.ForegroundColor = ConsoleColor.DarkBlue;
-					} else {
+					}
+					else if (DestY == y && DestX == x) {
+						Console.ForegroundColor = ConsoleColor.Yellow;
+					}
+					else {
 						Console.ForegroundColor = GetTileColor(Tile[y, x]);
 					}
 					Console.Write(TILE + " ");

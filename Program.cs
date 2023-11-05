@@ -2,7 +2,9 @@
 	internal class Program {
 		static void Main(string[] args) {
 			Maze maze = new Maze();
-			maze.init(25);
+			Player player = new Player();
+			maze.Init(25, player);
+			player.Init(1, 1, maze.Size - 2, maze.Size - 2, maze);
 
 			Console.CursorVisible = false; // 콘솔 커서 표시 안함
 
@@ -15,11 +17,13 @@
 
 				if (currentTick - lastTick < WAIT_TICK)
 					continue;
+				int deltaTick = currentTick - lastTick;
 				lastTick = currentTick;
 				#endregion
 				// INPUT
 
 				// LOGIC
+				player.Update(deltaTick);
 
 				// RENDERING
 				Console.SetCursorPosition(0, 0); // 콘솔 커서의 위치를 0, 0으로 고정

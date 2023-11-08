@@ -12,7 +12,6 @@ namespace Pathfinder_Algorithm {
 		public int DestY { get; private set; }
 		public int DestX { get; private set; }
 
-
 		public Player _player;
 
 		public enum TileType {
@@ -125,17 +124,15 @@ namespace Pathfinder_Algorithm {
 			}
 		}
 		public void Render() {
-			ConsoleColor prevColor = Console.ForegroundColor;
-
+            Console.WriteLine("d");
+            ConsoleColor prevColor = Console.ForegroundColor;
 			for (int y = 0; y < Size; y++) {
 				for (int x = 0; x < Size; x++) {
 					if (_player.PosX == x && _player.PosY == y) {
 						Console.ForegroundColor = ConsoleColor.DarkBlue;
-					}
-					else if (DestY == y && DestX == x) {
+					} else if (DestY == y && DestX == x) {
 						Console.ForegroundColor = ConsoleColor.Yellow;
-					}
-					else {
+					} else {
 						Console.ForegroundColor = GetTileColor(Tile[y, x]);
 					}
 					Console.Write(TILE + " ");

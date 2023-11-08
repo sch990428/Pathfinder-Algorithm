@@ -13,7 +13,7 @@
 
 			while (true) {
 				#region FPS (1초에 루프가 60번 실행되도록)
-				int currentTick = System.Environment.TickCount;
+				int currentTick = Environment.TickCount & Int32.MaxValue;
 
 				if (currentTick - lastTick < WAIT_TICK)
 					continue;
@@ -27,8 +27,9 @@
 
 				// RENDERING
 				Console.SetCursorPosition(0, 0); // 콘솔 커서의 위치를 0, 0으로 고정
+				
 				maze.Render();
-            }
+			}
 		}
 	}
 }

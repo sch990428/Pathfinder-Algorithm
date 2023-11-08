@@ -18,7 +18,7 @@
 			Right
 		}
 		public void Init(int posY, int posX, Maze maze) {
-			PosY = posY;
+            PosY = posY;
 			PosX = posX;
 
 			_maze = maze;
@@ -62,12 +62,12 @@
 			}
 
 			_sumTick += deltaTick;
-            if (_sumTick >= MOVE_TICK) {
+			if (_sumTick >= MOVE_TICK) {
 				_sumTick = 0;
 				PosY = _paths[_lastIndex].Y;
 				PosX = _paths[_lastIndex].X;
 				_lastIndex++;
 			}
-        }
+		}
 	}
 }

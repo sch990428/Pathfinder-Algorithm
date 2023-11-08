@@ -124,7 +124,6 @@ namespace Pathfinder_Algorithm {
 			}
 		}
 		public void Render() {
-            Console.WriteLine("d");
             ConsoleColor prevColor = Console.ForegroundColor;
 			for (int y = 0; y < Size; y++) {
 				for (int x = 0; x < Size; x++) {

@@ -117,9 +117,10 @@
 			}
 		}
 		private void AStar() {
-			int[] deltaY = new int[] { -1, 0, 1, 0 };
-			int[] deltaX = new int[] { 0, -1, 0, 1 };
-			int[] cost = new int[] { 1, 1, 1, 1 };
+			// U L D R UL DL DR UR
+			int[] deltaY = new int[] { -1, 0, 1, 0, -1, 1, 1, -1 };
+			int[] deltaX = new int[] { 0, -1, 0, 1, -1, -1, 1, 1 };
+			int[] cost = new int[] { 10, 10, 10, 10, 14, 14, 14, 14 };
 
 			//점수 도출식 : F = G + H
 			//F : 최종 점수, G : 시작점에서 해당 좌표까지 이동하는데 드는 비용, H : 목적지에서 얼마나 가까운지
@@ -138,8 +139,8 @@
 			PriorityQueue<PQNode> pq = new PriorityQueue<PQNode>(); //open 리스트의 정보들 중 최적의 후보를 뽑기위한 우선순위 큐
 
 			//시작점 예약
-			open[PosY, PosX] = 0 + Math.Abs(_maze.DestY - PosY) + Math.Abs(_maze.DestX - PosX);
-			pq.Push(new PQNode() { F = Math.Abs(_maze.DestY - PosY) + Math.Abs(_maze.DestX - PosX), G = 0, Y = PosY, X = PosX});
+			open[PosY, PosX] = 0 + (Math.Abs(_maze.DestY - PosY) + Math.Abs(_maze.DestX - PosX)) * 10;
+			pq.Push(new PQNode() { F = (Math.Abs(_maze.DestY - PosY) + Math.Abs(_maze.DestX - PosX)) * 10, G = 0, Y = PosY, X = PosX});
 
 			parent[PosY, PosX] = new Pos(PosY, PosX);
 
@@ -153,7 +154,7 @@
 				if (node.Y == _maze.DestY && node.X == _maze.DestX) { break; } //목적지 도달 시 종료
 
 				//이동할 수 있는 좌표인지 확인 후 예약
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < 8; i++) {
 					int nextY = node.Y + deltaY[i];
 					int nextX = node.X + deltaX[i];
 
@@ -164,7 +165,7 @@
 
 					//비용 계산
 					int g = node.G + cost[i];
-					int h = Math.Abs(_maze.DestY - nextY) + Math.Abs(_maze.DestX - nextX);
+					int h = (Math.Abs(_maze.DestY - nextY) + Math.Abs(_maze.DestX - nextX)) * 10;
 
 					//더 빠른 길을 찾은 경우 스킵
 					if (open[nextY, nextX] < g + h) { continue; }
@@ -179,7 +180,7 @@
 			CalcPathFromParent(parent);
 		}
 
-		const int MOVE_TICK = 10;
+		const int MOVE_TICK = 100;
 		int _sumTick = 0;
 		int _lastIndex = 0;
 		public void Update(int deltaTick) {

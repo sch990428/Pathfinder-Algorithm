@@ -118,9 +118,9 @@
 		}
 		private void AStar() {
 			// U L D R UL DL DR UR
-			int[] deltaY = new int[] { -1, 0, 1, 0, -1, 1, 1, -1 };
-			int[] deltaX = new int[] { 0, -1, 0, 1, -1, -1, 1, 1 };
-			int[] cost = new int[] { 10, 10, 10, 10, 14, 14, 14, 14 };
+			int[] deltaY = new int[] { -1, 0, 1, 0 };
+			int[] deltaX = new int[] { 0, -1, 0, 1 };
+			int[] cost = new int[] { 10, 10, 10, 10 };
 
 			//점수 도출식 : F = G + H
 			//F : 최종 점수, G : 시작점에서 해당 좌표까지 이동하는데 드는 비용, H : 목적지에서 얼마나 가까운지
@@ -154,7 +154,7 @@
 				if (node.Y == _maze.DestY && node.X == _maze.DestX) { break; } //목적지 도달 시 종료
 
 				//이동할 수 있는 좌표인지 확인 후 예약
-				for (int i = 0; i < 8; i++) {
+				for (int i = 0; i < 4; i++) {
 					int nextY = node.Y + deltaY[i];
 					int nextX = node.X + deltaX[i];
 
@@ -180,12 +180,15 @@
 			CalcPathFromParent(parent);
 		}
 
-		const int MOVE_TICK = 100;
+		const int MOVE_TICK = 10;
 		int _sumTick = 0;
 		int _lastIndex = 0;
 		public void Update(int deltaTick) {
 			if (_lastIndex >= _paths.Count) {
-				return;
+				_lastIndex = 0;
+				_paths.Clear();
+				_maze.Init(_maze.Size, this);
+				Init(1, 1, _maze);
 			}
 
 			_sumTick += deltaTick;
